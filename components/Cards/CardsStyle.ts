@@ -31,6 +31,15 @@ const styles = StyleSheet.create({
     shadowRadius: 6.27,
     elevation: 10
   },
+  empty: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "transparent",
+    elevation: 0,
+    paddingLeft: 0,
+    paddingTop: 0
+  },
   text: {
     elevation: 1,
     fontWeight: "900",

@@ -7,7 +7,7 @@ export const getBGColor = (difficulity: string) => {
     case "easy":
       return "#49BC7A";
     default:
-      return "white";
+      return "#1abc9c";
   }
 };
 
@@ -20,6 +20,6 @@ export const getCardColor = (difficulity: string) => {
     case "easy":
       return "#80CBA0";
     default:
-      return "white";
+      return "#1abc9c";
   }
 };

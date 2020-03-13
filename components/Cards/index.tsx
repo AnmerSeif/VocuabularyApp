@@ -1,5 +1,6 @@
 import React, { useMemo, useRef, useState, useEffect } from "react";
 import {
+  Image,
   Text,
   View,
   Dimensions,
@@ -17,6 +18,8 @@ import {
 
 import styles from "./CardsStyle";
 import { getCardColor } from "../CardUtilities";
+
+import success_icon from "../../assets/icons/success.png";
 
 const SCREEN_WIDTH = Dimensions.get("screen").width;
 const SCREEN_HEIGHT = Dimensions.get("screen").height;
@@ -43,13 +46,17 @@ const Cards: React.FC = () => {
   const rotate = RotateAnimation(position.current);
   const screenBGColor = ScreenBGColor(
     position.current,
-    list[currentIndex].difficulity,
-    list[currentIndex + 1].difficulity
+    list[currentIndex]?.difficulity,
+    list[currentIndex + 1]?.difficulity
   );
   const cardBGColor = CardBGColor(
     position.current,
-    list[currentIndex + 1].difficulity
+    list[currentIndex + 1]?.difficulity
   );
+
+  const updateCurrentIndex = () => {
+    setCurrentIndex(currentIndex + 1);
+  };
 
   const panResponder = useMemo(
     () =>
@@ -64,7 +71,7 @@ const Cards: React.FC = () => {
         },
         onPanResponderRelease: (evt, gestureState) => {
           if (Math.abs(gestureState.dx) > SCREEN_WIDTH / 2) {
-            setCurrentIndex(currentIndex + 1);
+            updateCurrentIndex();
             position.current.setValue({ x: 0, y: 0 });
           } else {
             Animated.spring(position.current, {
@@ -84,6 +91,10 @@ const Cards: React.FC = () => {
       ></Animated.View>
       <View style={styles.margin}></View>
       <View style={{ flex: 1 }}>
+        <View style={[styles.empty]}>
+          <Image source={success_icon} style={{ width: 150, height: 150 }} />
+          <Text style={[styles.text]}>No more cards</Text>
+        </View>
         {list
           .map((card, i) => {
             if (i < currentIndex) {
